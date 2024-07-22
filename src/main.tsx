@@ -15,7 +15,7 @@ const route = createBrowserRouter([
         element: <CompanyDashboard/>
       },
       {
-        path: "/home",
+        path: "/",
         element: <Home/>
       }
     ]
