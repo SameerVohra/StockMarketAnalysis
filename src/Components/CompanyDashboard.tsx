@@ -50,7 +50,7 @@ const CompanyDashboard = () => {
             ) : (
                 <>
                     <h1 className="text-3xl font-bold mb-4">{compData?.Company_Name}</h1>
-                    <div className="mb-4">
+                    <div className="m-4">
                         <label htmlFor="exchange" className="block text-lg font-medium mb-2">Select Stock Exchange:</label>
                         <select
                             id="exchange"

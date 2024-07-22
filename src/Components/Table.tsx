@@ -17,7 +17,7 @@ interface StockData {
 const Table: React.FC<TableProps> = ({ url, exchange }) => {
   const [stocks, setStocks] = useState<StockData[]>([]);
   const [currentPage, setCurrentPage] = useState(1);
-  const [loading, setLoading] = useState<boolean>(true); 
+  const [loading, setLoading] = useState<boolean>(true);
   const stocksPerPage = 100;
 
   const navigate = useNavigate();
@@ -48,7 +48,7 @@ const Table: React.FC<TableProps> = ({ url, exchange }) => {
 
   const handleDetails = (company: string) => {
     navigate(`/${company}/${exchange}/details`);
-  }
+  };
 
   const indexOfLastStock = currentPage * stocksPerPage;
   const indexOfFirstStock = indexOfLastStock - stocksPerPage;
@@ -70,7 +70,7 @@ const Table: React.FC<TableProps> = ({ url, exchange }) => {
         </div>
       ) : (
         <>
-          <div className="m-4 flex justify-center space-x-2">
+          <div className="m-4 flex justify-center space-x-2 flex-wrap gap-4">
             {pageNumbers.map((number) => (
               <button
                 key={number}
@@ -85,49 +85,70 @@ const Table: React.FC<TableProps> = ({ url, exchange }) => {
               </button>
             ))}
           </div>
-          <table className="min-w-full bg-white border border-gray-200">
-            <thead>
-              <tr>
-                {" "}
-                <th className="px-4 py-2 border-b-2 border-gray-200">
-                  Sr. No.
-                </th>
-                <th className="px-4 py-2 border-b-2 border-gray-200">
-                  Company Name
-                </th>
-                <th className="px-4 py-2 border-b-2 border-gray-200">
-                  Current Price
-                </th>
-                <th className="px-4 py-2 border-b-2 border-gray-200">
-                  Previous Price
-                </th>
-                <th className="px-4 py-2 border-b-2 border-gray-200">
-                  Percentage Change
-                </th>
-              </tr>
-            </thead>
-            <tbody>
-              {currentStocks.map((stock, index) => (
-                <tr key={index} className="text-center">
-                  <td className="px-4 py-2 border-b border-gray-200">
-                    {index + 1}
-                  </td>
-                  <td className="px-4 py-2 border-b border-gray-200">
-                    <button onClick={() => handleDetails(stock.company)}>{stock.company}</button>
-                  </td>
-                  <td className="px-4 py-2 border-b border-gray-200">
-                    {stock.Current_Price}
-                  </td>
-                  <td className="px-4 py-2 border-b border-gray-200">
-                    {stock.Previous_Price}
-                  </td>
-                  <td className="px-4 py-2 border-b border-gray-200">
-                    {stock.Change}
-                  </td>
+          <div className="overflow-x-auto">
+            <table className="min-w-full bg-white border border-gray-200">
+              <thead>
+                <tr>
+                  <th className="px-4 py-2 border-b-2 border-gray-200">
+                    Sr. No.
+                  </th>
+                  <th className="px-4 py-2 border-b-2 border-gray-200">
+                    Company Name
+                  </th>
+                  <th className="px-4 py-2 border-b-2 border-gray-200">
+                    Current Price
+                  </th>
+                  <th className="px-4 py-2 border-b-2 border-gray-200">
+                    Previous Price
+                  </th>
+                  <th className="px-4 py-2 border-b-2 border-gray-200">
+                    Percentage Change
+                  </th>
                 </tr>
+              </thead>
+              <tbody>
+                {currentStocks.map((stock, index) => (
+                  <tr key={index} className="text-center">
+                    <td className="px-4 py-2 border-b border-gray-200">
+                      {index + 1}
+                    </td>
+                    <td className="px-4 py-2 border-b border-gray-200">
+                      <button
+                        onClick={() => handleDetails(stock.company)}
+                        className="text-blue-500 hover:underline"
+                      >
+                        {stock.company}
+                      </button>
+                    </td>
+                    <td className="px-4 py-2 border-b border-gray-200">
+                      {stock.Current_Price}
+                    </td>
+                    <td className="px-4 py-2 border-b border-gray-200">
+                      {stock.Previous_Price}
+                    </td>
+                    <td className="px-4 py-2 border-b border-gray-200">
+                      {stock.Change}
+                    </td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+            <div className="m-4 flex justify-center space-x-2 flex-wrap gap-4">
+              {pageNumbers.map((number) => (
+                <button
+                  key={number}
+                  onClick={() => paginate(number)}
+                  className={`px-3 py-1 border rounded ${
+                    number === currentPage
+                      ? "bg-blue-500 text-white"
+                      : "bg-white text-blue-500 border-blue-500"
+                  }`}
+                >
+                  {number}
+                </button>
               ))}
-            </tbody>
-          </table>
+            </div>
+          </div>
         </>
       )}
     </div>
