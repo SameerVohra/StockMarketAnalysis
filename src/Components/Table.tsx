@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import axios from "axios";
+import { useNavigate } from "react-router-dom";
 
 interface TableProps {
   exchange: string;
@@ -13,11 +14,13 @@ interface StockData {
   Change: string;
 }
 
-const Table: React.FC<TableProps> = ({ url }) => {
+const Table: React.FC<TableProps> = ({ url, exchange }) => {
   const [stocks, setStocks] = useState<StockData[]>([]);
   const [currentPage, setCurrentPage] = useState(1);
   const [loading, setLoading] = useState<boolean>(true); 
   const stocksPerPage = 100;
+
+  const navigate = useNavigate();
 
   useEffect(() => {
     const fetchData = async () => {
@@ -42,6 +45,10 @@ const Table: React.FC<TableProps> = ({ url }) => {
     };
     fetchData();
   }, [url]);
+
+  const handleDetails = (company: string) => {
+    navigate(`/${company}/${exchange}/details`);
+  }
 
   const indexOfLastStock = currentPage * stocksPerPage;
   const indexOfFirstStock = indexOfLastStock - stocksPerPage;
@@ -106,7 +113,7 @@ const Table: React.FC<TableProps> = ({ url }) => {
                     {index + 1}
                   </td>
                   <td className="px-4 py-2 border-b border-gray-200">
-                    {stock.company}
+                    <button onClick={() => handleDetails(stock.company)}>{stock.company}</button>
                   </td>
                   <td className="px-4 py-2 border-b border-gray-200">
                     {stock.Current_Price}

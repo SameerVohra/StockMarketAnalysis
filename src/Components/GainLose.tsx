@@ -111,10 +111,10 @@ const GainLost = () => {
       </div>
 
       <h2 className="text-2xl font-semibold text-center text-gray-700 mb-6">
-        {exchange} | {heading} | {type}
+        {exchange} | {heading} | {type.toUpperCase()}
       </h2>
 
-      <Table url={url} />
+      <Table url={url} exchange={exc} />
     </div>
   );
 };

@@ -11,7 +11,7 @@ const route = createBrowserRouter([
     element: <App/>,
     children:[
       {
-        path: "/:companyname/details",
+        path: "/:companyname/:exchange/details",
         element: <CompanyDashboard/>
       },
       {
