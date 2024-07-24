@@ -7,7 +7,7 @@ const Search = () => {
 
     const navigate  = useNavigate();
 
-    const handleSearch = (e) => {
+    const handleSearch = (e: React.FormEvent) => {
         console.log(name);
         e.preventDefault();
 
