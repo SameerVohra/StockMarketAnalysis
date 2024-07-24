@@ -126,7 +126,7 @@ const Table: React.FC<TableProps> = ({ url, exchange }) => {
                     <td className="px-4 py-2 border-b border-gray-200">
                       {stock.Previous_Price}
                     </td>
-                    <td className="px-4 py-2 border-b border-gray-200">
+                    <td className={`px-4 py-2 border-b border-gray-200 ${parseFloat(stock.Change)<0 ? 'text-red-500' : 'text-green-400'}`}>
                       {stock.Change}
                     </td>
                   </tr>
